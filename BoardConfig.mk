@@ -11,83 +11,80 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-#
-# This file sets variables that control the way modules are built
-# thorughout the system. It should not be used to conditionally
-# disable makefiles (the proper mechanism to control what gets
-# included in a build is to use PRODUCT_PACKAGES in a product
-# definition file).
 #
 
-# WARNING: This line must come *before* including the proprietary
-# variant, so that it gets overwritten by the parent (which goes
-# against the traditional rules of inheritance).
-# The proprietary variant sets USE_CAMERA_STUB := false, this way
-# we use the camera stub when the vendor tree isn't present, and
-# the true camera library when the vendor tree is available.  Similarly,
-# we set USE_PROPRIETARY_AUDIO_EXTENSIONS to true in the proprietary variant as
-# well.
-USE_CAMERA_STUB := true
 USE_PROPRIETARY_AUDIO_EXTENSIONS := false
-
-# Use a smaller subset of system fonts to keep image size lower
-SMALLER_FONT_FOOTPRINT := true
-
-# inherit from the proprietary version
-# needed for BP-flashing updater extensions
--include vendor/moto/stingray/BoardConfigVendor.mk
-
-TARGET_BOARD_PLATFORM := tegra
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
+TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a
-ARCH_ARM_HAVE_TLS_REGISTER := true
-
-TARGET_USERIMAGES_USE_EXT4 := true
-
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 251658240
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 31399067648
-BOARD_FLASH_BLOCK_SIZE := 4096
-
-# Wifi related defines
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-WPA_SUPPLICANT_VERSION      := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_HOSTAPD_DRIVER        := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_bcmdhd
-BOARD_WLAN_DEVICE           := bcmdhd
-#WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/bcm4329.ko"
-WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_P2P     := "/vendor/firmware/fw_bcmdhd_p2p.bin"
-
-BOARD_USES_GENERIC_AUDIO := false
-
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
-
-BOARD_HAVE_GPS := true
-
-USE_OPENGL_RENDERER := true
-BOARD_EGL_CFG := device/moto/wingray/egl.cfg
-
-ifneq ($(HAVE_NVIDIA_PROP_SRC),false)
-# needed for source compilation of nvidia libraries
--include vendor/nvidia/proprietary_src/build/definitions.mk
--include vendor/nvidia/build/definitions.mk
-endif
-
-TARGET_RECOVERY_UI_LIB := librecovery_ui_stingray
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_ARCH_VARIANT_CPU := cortex-a9
+TARGET_CPU_VARIANT := generic
 
 # Avoid the generation of ldrcc instructions
 NEED_WORKAROUND_CORTEX_A9_745320 := true
-BOARD_KERNEL_CMDLINE := androidboot.carrier=wifi-only product_type=w
 
-# Use the open-source board-info file if none was set by the vendor
-# config.
-TARGET_BOARD_INFO_FILE ?= device/moto/wingray/board-info.txt
+# DO NOT change the following line to vfpv3 as it is not really supported on our device!
+TARGET_ARCH_VARIANT_FPU := vfpv3-d16
+ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_USE_NON_NEON_MEMCPY := true
+
+TARGET_BOARD_PLATFORM := tegra
+TARGET_TEGRA_VERSION := ap20
+TARGET_BOARD_PLATFORM_GPU := tegra
+TARGET_USERIMAGES_USE_EXT4 := true
+
+# Kernel
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_BASE := 0x10000000
+BOARD_KERNEL_CMDLINE := androidboot.carrier=wifi-only product_type=w
+#KERNEL_MODULES_DIR := /system/lib/modules
+TARGET_KERNEL_SOURCE := kernel/moto/wingray
+TARGET_KERNEL_CONFIG := eos_defconfig
+
+# Filesystem
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1056858112
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 29859115008
+BOARD_FLASH_BLOCK_SIZE := 4096
+# Use this flag if the board has a ext4 partition larger than 2gb
+BOARD_HAS_LARGE_FILESYSTEM := true
+
+
+TARGET_NO_KERNEL := false
+TARGET_NO_RECOVERY := false
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+
+
+# Audio
+BOARD_USES_GENERIC_AUDIO := false
+BOARD_OMX_NEEDS_LEGACY_AUDIO := true
+BOARD_NEED_OMX_COMPAT := true
+BOARD_USB_AUDIO_CARD_ID := 0
+
+# Camera
+USE_CAMERA_STUB := false
+
+# Graphics
+USE_OPENGL_RENDERER := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+SKIP_SET_METADATA := true
+BOARD_USE_MHEAP_SCREENSHOT := true
+BOARD_USES_HWCOMPOSER := true
+BOARD_EGL_NEEDS_LEGACY_FB := true
+
+# Enable WEBGL in WebKit
+ENABLE_WEBGL := true
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+# BOARD_BLUEDROID_VENDOR_CONF :=
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/moto/wingray/bluetooth
+
+
+
+TARGET_BOARD_INFO_FILE := device/moto/wingray/board-info.txt
