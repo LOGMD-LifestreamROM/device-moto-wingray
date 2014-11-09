@@ -73,14 +73,26 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
         device/moto/wingray/libaudio/audio_policy.conf:system/etc/audio_policy.conf
 
+# Disabled packages
+# PRODUCT_PACKAGES := \
+#     camera.stingray \
+#     sensors.stingray \
+#     lights.stingray \
+#     audio.primary.stingray \
+#     audio.a2dp.default \
+#     audio.usb.default \
+#     audio_policy.stingray \
+#     librs_jni \
+#     make_ext4fs \
+#     l2ping \
+#     hcitool \
+#     bttest \
+#     com.android.future.usb.accessory \
+#     whisperd
+    
+
 PRODUCT_PACKAGES := \
-    camera.stingray \
     sensors.stingray \
-    lights.stingray \
-    audio.primary.stingray \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio_policy.stingray \
     librs_jni \
     make_ext4fs \
     l2ping \
