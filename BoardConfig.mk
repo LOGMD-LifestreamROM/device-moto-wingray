@@ -68,10 +68,10 @@ WIFI_DRIVER_FW_PATH_P2P     := "/vendor/firmware/fw_bcmdhd_p2p.bin"
 
 BOARD_USES_GENERIC_AUDIO := false
 
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_HAVE_BLUETOOTH := false
+BOARD_HAVE_BLUETOOTH_BCM := false
 
-BOARD_HAVE_GPS := true
+BOARD_HAVE_GPS := false
 
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/moto/wingray/egl.cfg
